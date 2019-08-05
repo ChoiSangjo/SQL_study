@@ -1,0 +1,43 @@
+SQL 구문
+
+SELECT
+- SELECT name, phone_nbr, address, sex, age FROM address;
+
+WHERE
+/ 연산자 (=, <>, >=, <=, >, </ AND, OR, IN/ IS NULL, IS NOT NULL)
+- SELECT name, address FROM address WHERE Address = ‘인천시’;
+- SELECT name, age FROM Address WHERE age >= 30;
+- SELECT name, address FROM Address WHERE address <> ‘서울시’;
+- SELECT name, address, age FROM Address WHERE address = ‘서울시’ AND age >= 30;
+- SELECT name, address FROM Address WHERE address = ‘서울시’ OR address = ‘인천시’ OR address = ‘부산시’;
+- SELECT name, address FROM Address WHERE address IN(‘서울시’, ‘부산시’, ‘인천시’);
+- SELECT name, address FROM Address WHERE phone_nbr IS NULL;
+
+GROUP BY
+/ 집계 함수 (COUNT, SUM, AVG, MAX, MIN
+/ 추가 조건 (HAVING)
+- SELECT sex, COUNT(*) FROM Address GROUP BY sex;
+- SELECT COUNT(*) FROM Address GROUP BY();
+    - = SELECT COUNT(*) FROM address;
+- SELECT address, COUNT(*) FROM Address GROUP BY address HAVING COUNT(*) = 1;
+
+ORDER BY
+/ ASC-오름차순(기본), DESC-내림차순
+- SELECT name, phone_nbr, address, sex, age FROM Address ORDER BY age DESC;
+
+VIEW (자주쓰는 구문 저장)
+/ REATE VIEW 뷰이름 (필드이름1, 필드이름2) AS 구문
+- (등록) CREATE VIEW CountAddress (v_address, cnt) AS SELECT address, COUNT(*) FROM Address GROUP BY address;
+- (사용) SELECT v_address, cnt FROM CountAddress;
+
+/ 뷰에서 데이터를 선택
+- SELECT v_address, cnt FROM CountAddress;
+/ 뷰는 실행할 때 SELECT 구문으로 전개
+- SELECT v_address, cnt FROM (SELECT address AS v_address, COUNT(*) AS cnt FROM Address GROUP BY address) AS CountAddress;
+
+Subquery
+/ FROM 구에 직접 지정하는 SELECT 구문 (Subquery부터 실행)
+// 두 테이블에서 중복되는 값(이름)을 선택
+- SELCET name FROM Address WHERE name IN (SELECT name FROM Address2);
+
+
