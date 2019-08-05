@@ -39,5 +39,3 @@ Subquery
 / FROM 구에 직접 지정하는 SELECT 구문 (Subquery부터 실행)
 // 두 테이블에서 중복되는 값(이름)을 선택
 - SELCET name FROM Address WHERE name IN (SELECT name FROM Address2);
-
-
